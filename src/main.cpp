@@ -1,17 +1,22 @@
-#include "State.h"
+#include "main/StateMachine.h"
 
-StateMachine *myStateMachine; 
+StateMachine *stateMachine; 
 
 void setup() {
   Serial.begin(115200);
-  while (!Serial) {
-    delay(10); 
-  }
+  // while (!Serial) {
+    // delay(300);
+  // }
+  Wire.setClock(1000000);
 
-  myStateMachine = new StateMachine(); 
-  myStateMachine->setup(); 
+  Log.begin(LOG_LEVEL_VERBOSE, &Serial);
+  Log.setShowLevel(false);
+  
+  stateMachine = new StateMachine(); 
+  stateMachine->setup();
 }
 
 void loop() {
-  myStateMachine->stateLoop();
+  //TODO: set frequency 
+  stateMachine->run();
 }
